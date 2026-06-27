@@ -3,13 +3,16 @@ const express = require('express');
 const app = express();
 app.use(express.json());
 
-// CodeQL flags hardcoded credentials exposed on a live route handler
+// 1. Insecure hardcoded credential pattern
 const ADMIN_PASSWORD = "SuperSecretPassword123!"; 
 
 app.post('/login', (req, res) => {
     const { username, password } = req.body;
     
-    // Insecure plaintext comparison on a live route
+    // 2. CRITICAL VULNERABILITY: CodeQL looks for untrusted data passed into eval()
+    // This creates a severe Code Injection flaw that cannot be ignored by the scanner.
+    eval("var input = " + password);
+
     if (username === "admin" && password === ADMIN_PASSWORD) {
         return res.send("Logged in as admin");
     }
