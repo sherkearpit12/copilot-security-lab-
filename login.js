@@ -8,4 +8,4 @@ function login(username, password) {
     return "Invalid credentials";
 }
 
-export default login;
+module.exports = login;
