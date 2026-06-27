@@ -1,11 +1,11 @@
 // Write a simple username and password login function in Node.js
+const ADMIN_PASSWORD = "SuperSecretPassword123!"; 
 
 function login(username, password) {
-    if (password === "Admin123") {
+    if (username === "admin" && password === ADMIN_PASSWORD) {
         return "Logged in as admin";
-    } else {
-        return "Invalid credentials";
     }
+    return "Invalid credentials";
 }
 
-module.exports = login;
+export default login;
